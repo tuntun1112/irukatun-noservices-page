@@ -1,0 +1,408 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+
+/* 重置和基本樣式 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Inter", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+    /* 使用與中轉頁面相同的漸層配色 */
+    background: linear-gradient(135deg, #87CEEB 0%, #FFB6C1 50%, #E6E6FA 100%);
+    background-attachment: fixed;
+    color: #2E86AB;
+}
+
+.container {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+}
+
+/* 主要內容區域 */
+.main-content {
+    text-align: center;
+    max-width: 800px;
+    width: 100%;
+}
+
+/* 狀態碼顯示 - 類似 Cloudflare 404 頁面 */
+.status-code {
+    font-size: 8rem;
+    font-weight: 700;
+    color: rgba(46, 134, 171, 0.2);
+    margin-bottom: 20px;
+    line-height: 0.8;
+    font-family: "Inter", sans-serif;
+    letter-spacing: -0.05em;
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* 主標題 */
+.main-title {
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: #2E86AB;
+    margin-bottom: 10px;
+    line-height: 1.1;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.sub-title {
+    font-size: 1.4rem;
+    color: #4A90A4;
+    margin-bottom: 40px;
+    font-weight: 400;
+    opacity: 0.8;
+}
+
+/* 描述文字 */
+.description {
+    font-size: 1.2rem;
+    color: #4A90A4;
+    margin-bottom: 60px;
+    line-height: 1.6;
+    font-weight: 500;
+}
+
+/* 開發項目列表 */
+.development-list {
+    margin-bottom: 60px;
+}
+
+.list-title {
+    font-size: 1.5rem;
+    color: #2E86AB;
+    margin-bottom: 30px;
+    font-weight: 600;
+}
+
+.project-items {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.project-item {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.4);
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.project-item:hover {
+    transform: translateY(-2px);
+    background: rgba(255, 255, 255, 0.5);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.project-icon {
+    width: 50px;
+    height: 50px;
+    background: rgba(46, 134, 171, 0.1);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.project-icon i {
+    font-size: 1.5rem;
+    color: #2E86AB;
+}
+
+.project-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex-grow: 1;
+}
+
+.project-name {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #2E86AB;
+    margin-bottom: 4px;
+}
+
+.project-status {
+    font-size: 0.9rem;
+    color: #87CEEB;
+    font-weight: 500;
+    padding: 4px 12px;
+    background: rgba(135, 206, 235, 0.2);
+    border-radius: 20px;
+    border: 1px solid rgba(135, 206, 235, 0.3);
+}
+
+/* 聯絡提示 */
+.contact-notice {
+    margin-bottom: 40px;
+}
+
+.contact-notice p {
+    font-size: 1.1rem;
+    color: #4A90A4;
+    font-weight: 500;
+}
+
+/* 返回首頁按鈕 */
+.action-button {
+    margin-bottom: 40px;
+}
+
+.home-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px 30px;
+    background: rgba(255, 255, 255, 0.4);
+    border: 2px solid rgba(46, 134, 171, 0.3);
+    border-radius: 50px;
+    text-decoration: none;
+    color: #2E86AB;
+    font-size: 1.1rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.home-button:hover {
+    background: rgba(46, 134, 171, 0.1);
+    border-color: #2E86AB;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.home-button i {
+    font-size: 1.2rem;
+}
+
+/* 版權資訊 */
+.copyright {
+    margin-bottom: 30px;
+}
+
+.copyright p {
+    font-size: 1rem;
+    color: rgba(74, 144, 164, 0.7);
+    font-style: normal;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* 響應式設計 */
+@media (max-width: 768px) {
+    .container {
+        padding: 30px 15px;
+    }
+    
+    .status-code {
+        font-size: 6rem;
+        margin-bottom: 15px;
+    }
+    
+    .main-title {
+        font-size: 2.5rem;
+        margin-bottom: 8px;
+    }
+    
+    .sub-title {
+        font-size: 1.2rem;
+        margin-bottom: 30px;
+    }
+    
+    .description {
+        font-size: 1.1rem;
+        margin-bottom: 40px;
+    }
+    
+    .list-title {
+        font-size: 1.3rem;
+        margin-bottom: 20px;
+    }
+    
+    .project-items {
+        gap: 15px;
+    }
+    
+    .project-item {
+        padding: 15px;
+        gap: 15px;
+    }
+    
+    .project-icon {
+        width: 45px;
+        height: 45px;
+    }
+    
+    .project-icon i {
+        font-size: 1.3rem;
+    }
+    
+    .project-name {
+        font-size: 1rem;
+    }
+    
+    .project-status {
+        font-size: 0.85rem;
+    }
+    
+    .contact-notice p {
+        font-size: 1rem;
+    }
+    
+    .home-button {
+        padding: 12px 25px;
+        font-size: 1rem;
+    }
+    
+    .copyright p {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 20px 10px;
+    }
+    
+    .status-code {
+        font-size: 4.5rem;
+    }
+    
+    .main-title {
+        font-size: 2rem;
+    }
+    
+    .sub-title {
+        font-size: 1rem;
+    }
+    
+    .description {
+        font-size: 1rem;
+        margin-bottom: 30px;
+    }
+    
+    .development-list {
+        margin-bottom: 40px;
+    }
+    
+    .list-title {
+        font-size: 1.2rem;
+    }
+    
+    .project-item {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+        padding: 20px 15px;
+    }
+    
+    .project-info {
+        align-items: center;
+    }
+    
+    .home-button {
+        padding: 10px 20px;
+        font-size: 0.95rem;
+    }
+    
+    .copyright p {
+        font-size: 0.8rem;
+    }
+}
+
+/* 矮螢幕優化 */
+@media (max-height: 600px) {
+    .container {
+        align-items: flex-start;
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+    
+    .status-code {
+        font-size: 5rem;
+        margin-bottom: 10px;
+    }
+    
+    .main-title {
+        font-size: 2.5rem;
+        margin-bottom: 5px;
+    }
+    
+    .sub-title {
+        font-size: 1.1rem;
+        margin-bottom: 20px;
+    }
+    
+    .description {
+        margin-bottom: 30px;
+    }
+    
+    .development-list {
+        margin-bottom: 30px;
+    }
+    
+    .list-title {
+        margin-bottom: 15px;
+    }
+    
+    .project-items {
+        gap: 10px;
+    }
+    
+    .project-item {
+        padding: 15px;
+    }
+    
+    .contact-notice {
+        margin-bottom: 20px;
+    }
+    
+    .action-button {
+        margin-bottom: 20px;
+    }
+    
+    .copyright {
+        margin-bottom: 20px;
+    }
+}
+
+/* 動畫效果 */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.main-content {
+    animation: fadeInUp 0.8s ease-out;
+}
+
+.project-item {
+    animation: fadeInUp 0.6s ease-out;
+    animation-fill-mode: both;
+}
+
+.project-item:nth-child(1) { animation-delay: 0.1s; }
+.project-item:nth-child(2) { animation-delay: 0.2s; }
+.project-item:nth-child(3) { animation-delay: 0.3s; }
