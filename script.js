@@ -4,6 +4,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // 初始化頁面動畫
     initPageAnimations();
     
+    // 初始化進度條動畫
+    initProgressBar();
+    
     // 初始化返回首頁按鈕效果
     initHomeButton();
     
@@ -30,6 +33,145 @@ function initPageAnimations() {
             mainContent.style.transform = 'translateY(0)';
         }, 200);
     }
+}
+
+// 進度條動畫
+function initProgressBar() {
+    const progressFill = document.querySelector('.progress-fill');
+    const progressPercentage = document.querySelector('.progress-percentage');
+    const progressStatus = document.querySelector('.progress-status');
+    const progressContainer = document.querySelector('.progress-container');
+    const progressHint = document.querySelector('.progress-hint');
+    
+    if (!progressFill || !progressPercentage || !progressStatus) return;
+    
+    // 更新狀態訊息和對應進度
+    const statusStages = [
+        { message: "正在初始化開發環境...", minProgress: 0, maxProgress: 29 },
+        { message: "正在進行初期規劃...", minProgress: 30, maxProgress: 39 },
+        { message: "正在編寫核心功能...", minProgress: 40, maxProgress: 54 },
+        { message: "正在設計用戶界面...", minProgress: 55, maxProgress: 64 },
+        { message: "正在優化性能開銷...", minProgress: 65, maxProgress: 74 },
+        { message: "正在進行安全性測試...", minProgress: 75, maxProgress: 82 },
+        { message: "正在進行最終佈署...", minProgress: 83, maxProgress: 91 }
+    ];
+    
+    let currentProgress = 0;
+    let currentStageIndex = 0;
+    let isAnimating = false;
+    let isCompleted = false;
+    
+    // 延遲啟動進度條動畫，初次載入進展到21%
+    setTimeout(() => {
+        updateToNextStage(21);
+    }, 1000);
+    
+    function updateToNextStage(targetProgress = null) {
+        if (isAnimating || isCompleted) return;
+        
+        // 如果沒有指定目標進度，計算下一階段的進度
+        if (targetProgress === null) {
+            if (currentProgress > 75) {
+                // 超過75%後，下次更新必定設為90%
+                targetProgress = 90;
+                isCompleted = true;
+                if (progressHint) {
+                    progressHint.style.opacity = '0.3';
+                    progressHint.style.pointerEvents = 'none';
+                    progressHint.textContent = '開發即將完成';
+                }
+            } else {
+                // 每次更新9-13%
+                const increment = Math.floor(Math.random() * 5) + 9;
+                targetProgress = Math.min(currentProgress + increment, 91);
+            }
+        }
+        
+        // 找到對應的階段
+        let newStageIndex = currentStageIndex;
+        for (let i = 0; i < statusStages.length; i++) {
+            if (targetProgress >= statusStages[i].minProgress && targetProgress <= statusStages[i].maxProgress) {
+                newStageIndex = i;
+                break;
+            }
+        }
+        
+        // 更新狀態訊息
+        if (newStageIndex !== currentStageIndex) {
+            currentStageIndex = newStageIndex;
+            progressStatus.textContent = statusStages[currentStageIndex].message;
+        }
+        
+        animateProgress(targetProgress);
+    }
+    
+    function animateProgress(targetProgress) {
+        if (isAnimating) return;
+        isAnimating = true;
+        
+        const startProgress = currentProgress;
+        const progressDiff = targetProgress - startProgress;
+        const duration = 1500; // 1.5秒動畫
+        const startTime = Date.now();
+        
+        function animate() {
+            const elapsed = Date.now() - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            
+            // 使用緩動函數
+            const easeProgress = 1 - Math.pow(1 - progress, 3);
+            currentProgress = startProgress + progressDiff * easeProgress;
+            
+            progressFill.style.width = currentProgress + '%';
+            progressPercentage.textContent = Math.round(currentProgress) + '%';
+            
+            if (progress < 1) {
+                requestAnimationFrame(animate);
+            } else {
+                currentProgress = targetProgress;
+                isAnimating = false;
+                
+                // 如果還沒完成，設置下次隨機更新
+                if (!isCompleted) {
+                    setTimeout(() => {
+                        // 每5秒有20%概率自動更新
+                        if (Math.random() < 0.2) {
+                            updateToNextStage();
+                        }
+                    }, 5000);
+                }
+            }
+        }
+        
+        animate();
+    }
+    
+    // 點擊進度條加速開發
+    progressContainer.addEventListener('click', () => {
+        if (!isCompleted) {
+            updateToNextStage();
+        }
+    });
+    
+    // 滑鼠懸停效果
+    progressContainer.addEventListener('mouseenter', () => {
+        if (!isCompleted) {
+            progressContainer.style.transform = 'scale(1.02)';
+            progressContainer.style.transition = 'transform 0.3s ease';
+            if (progressHint) {
+                progressHint.style.opacity = '1';
+                progressHint.style.color = '#FFB6C1';
+            }
+        }
+    });
+    
+    progressContainer.addEventListener('mouseleave', () => {
+        progressContainer.style.transform = 'scale(1)';
+        if (progressHint && !isCompleted) {
+            progressHint.style.opacity = '0.7';
+            progressHint.style.color = '#87CEEB';
+        }
+    });
 }
 
 // 返回首頁按鈕效果
