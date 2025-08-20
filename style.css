@@ -1,5 +1,46 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
 
+/* CSS 變量 */
+:root {
+    /* 淺色模式 */
+    --bg-gradient: linear-gradient(135deg, #87CEEB 0%, #FFB6C1 50%, #E6E6FA 100%);
+    --card-bg: rgba(255, 255, 255, 0.25);
+    --card-border: rgba(255, 255, 255, 0.3);
+    --text-primary: #2E86AB;
+    --text-secondary: #4A90A4;
+    --text-muted: rgba(74, 144, 164, 0.8);
+    --button-bg: rgba(255, 255, 255, 0.3);
+    --button-border: rgba(255, 255, 255, 0.3);
+    --button-hover-bg: rgba(255, 255, 255, 0.4);
+    --modal-bg: rgba(255, 255, 255, 0.95);
+    --overlay-bg: rgba(0, 0, 0, 0.3);
+    --social-link-bg: rgba(255, 255, 255, 0.3);
+    --social-link-hover: rgba(255, 255, 255, 0.4);
+    --progress-bg: rgba(255, 255, 255, 0.2);
+    --progress-fill: linear-gradient(90deg, #87CEEB 0%, #FFB6C1 100%);
+    --status-code-color: rgba(46, 134, 171, 0.2);
+}
+
+/* 暗色模式 */
+[data-theme="dark"] {
+    --bg-gradient: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    --card-bg: rgba(30, 30, 50, 0.8);
+    --card-border: rgba(255, 255, 255, 0.1);
+    --text-primary: #87CEEB;
+    --text-secondary: #B0C4DE;
+    --text-muted: rgba(176, 196, 222, 0.8);
+    --button-bg: rgba(255, 255, 255, 0.1);
+    --button-border: rgba(255, 255, 255, 0.2);
+    --button-hover-bg: rgba(255, 255, 255, 0.2);
+    --modal-bg: rgba(30, 30, 50, 0.95);
+    --overlay-bg: rgba(0, 0, 0, 0.5);
+    --social-link-bg: rgba(255, 255, 255, 0.1);
+    --social-link-hover: rgba(255, 255, 255, 0.2);
+    --progress-bg: rgba(255, 255, 255, 0.1);
+    --progress-fill: linear-gradient(90deg, #4A90A4 0%, #87CEEB 100%);
+    --status-code-color: rgba(135, 206, 235, 0.2);
+}
+
 /* 重置和基本樣式 */
 * {
     margin: 0;
@@ -11,10 +52,10 @@ body {
     font-family: "Inter", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     min-height: 100vh;
     overflow-x: hidden;
-    /* 使用與中轉頁面相同的漸層配色 */
-    background: linear-gradient(135deg, #87CEEB 0%, #FFB6C1 50%, #E6E6FA 100%);
+    background: var(--bg-gradient);
     background-attachment: fixed;
-    color: #2E86AB;
+    color: var(--text-primary);
+    transition: all 0.3s ease;
 }
 
 .container {
@@ -25,6 +66,42 @@ body {
     align-items: center;
     justify-content: center;
     padding: 40px 20px;
+}
+
+/* 主題切換按鈕 */
+.theme-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+
+.theme-toggle-btn {
+    width: 50px;
+    height: 50px;
+    border: none;
+    border-radius: 50%;
+    background: var(--button-bg);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--button-border);
+    color: var(--text-primary);
+    font-size: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.theme-toggle-btn:hover {
+    background: var(--button-hover-bg);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.theme-toggle-btn:active {
+    transform: translateY(0);
 }
 
 /* 主要內容區域 */
@@ -38,7 +115,7 @@ body {
 .status-code {
     font-size: 8rem;
     font-weight: 700;
-    color: rgba(46, 134, 171, 0.2);
+    color: var(--status-code-color);
     margin-bottom: 20px;
     line-height: 0.8;
     font-family: "Inter", sans-serif;
@@ -50,7 +127,7 @@ body {
 .main-title {
     font-size: 3.5rem;
     font-weight: 700;
-    color: #2E86AB;
+    color: var(--text-primary);
     margin-bottom: 10px;
     line-height: 1.1;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -58,7 +135,7 @@ body {
 
 .sub-title {
     font-size: 1.4rem;
-    color: #4A90A4;
+    color: var(--text-secondary);
     margin-bottom: 40px;
     font-weight: 400;
     opacity: 0.8;
@@ -67,7 +144,7 @@ body {
 /* 描述文字 */
 .description {
     font-size: 1.2rem;
-    color: #4A90A4;
+    color: var(--text-secondary);
     margin-bottom: 50px;
     max-width: 600px;
     margin-left: auto;
@@ -92,13 +169,13 @@ body {
 
 .progress-text {
     font-size: 1.1rem;
-    color: #2E86AB;
+    color: var(--text-primary);
     font-weight: 600;
 }
 
 .progress-percentage {
     font-size: 1.1rem;
-    color: #4A90A4;
+    color: var(--text-secondary);
     font-weight: 600;
     font-family: 'Courier New', monospace;
 }
@@ -107,10 +184,10 @@ body {
     position: relative;
     width: 100%;
     height: 12px;
-    background: rgba(255, 255, 255, 0.3);
+    background: var(--progress-bg);
     border-radius: 20px;
     overflow: hidden;
-    border: 1px solid rgba(255, 255, 255, 0.4);
+    border: 1px solid var(--button-border);
     box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -120,7 +197,7 @@ body {
     left: 0;
     height: 100%;
     width: 0%;
-    background: linear-gradient(90deg, #87CEEB, #FFB6C1);
+    background: var(--progress-fill);
     border-radius: 20px;
     transition: width 0.3s ease;
     animation: progressPulse 2s ease-in-out infinite;
@@ -142,7 +219,7 @@ body {
     text-align: center;
     margin-top: 15px;
     font-size: 1rem;
-    color: #4A90A4;
+    color: var(--text-secondary);
     font-style: normal;
 }
 
@@ -150,7 +227,7 @@ body {
     text-align: center;
     margin-top: 8px;
     font-size: 0.9rem;
-    color: #87CEEB;
+    color: var(--text-primary);
     opacity: 0.7;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -192,7 +269,7 @@ body {
 
 .list-title {
     font-size: 1.5rem;
-    color: #2E86AB;
+    color: var(--text-primary);
     margin-bottom: 30px;
     font-weight: 600;
 }
@@ -210,22 +287,23 @@ body {
     align-items: center;
     gap: 20px;
     padding: 20px;
-    background: rgba(255, 255, 255, 0.4);
+    background: var(--button-bg);
     border-radius: 12px;
     transition: all 0.3s ease;
-    border: 1px solid rgba(255, 255, 255, 0.3);
+    border: 1px solid var(--button-border);
+    backdrop-filter: blur(10px);
 }
 
 .project-item:hover {
     transform: translateY(-2px);
-    background: rgba(255, 255, 255, 0.5);
+    background: var(--button-hover-bg);
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
 }
 
 .project-icon {
     width: 50px;
     height: 50px;
-    background: rgba(46, 134, 171, 0.1);
+    background: var(--social-link-bg);
     border-radius: 10px;
     display: flex;
     align-items: center;
@@ -235,7 +313,7 @@ body {
 
 .project-icon i {
     font-size: 1.5rem;
-    color: #2E86AB;
+    color: var(--text-primary);
 }
 
 .project-info {
@@ -248,18 +326,18 @@ body {
 .project-name {
     font-size: 1.1rem;
     font-weight: 600;
-    color: #2E86AB;
+    color: var(--text-primary);
     margin-bottom: 4px;
 }
 
 .project-status {
     font-size: 0.9rem;
-    color: #87CEEB;
+    color: var(--text-primary);
     font-weight: 500;
     padding: 4px 12px;
-    background: rgba(135, 206, 235, 0.2);
+    background: var(--social-link-bg);
     border-radius: 20px;
-    border: 1px solid rgba(135, 206, 235, 0.3);
+    border: 1px solid var(--button-border);
 }
 
 /* 上線狀態的亮綠色樣式 */
@@ -277,7 +355,7 @@ body {
 
 .contact-notice p {
     font-size: 1.1rem;
-    color: #4A90A4;
+    color: var(--text-secondary);
     font-weight: 500;
 }
 
@@ -291,19 +369,20 @@ body {
     align-items: center;
     gap: 10px;
     padding: 15px 30px;
-    background: rgba(255, 255, 255, 0.4);
-    border: 2px solid rgba(46, 134, 171, 0.3);
+    background: var(--button-bg);
+    border: 2px solid var(--button-border);
     border-radius: 50px;
     text-decoration: none;
-    color: #2E86AB;
+    color: var(--text-primary);
     font-size: 1.1rem;
     font-weight: 600;
     transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
 }
 
 .home-button:hover {
-    background: rgba(46, 134, 171, 0.1);
-    border-color: #2E86AB;
+    background: var(--button-hover-bg);
+    border-color: var(--text-primary);
     transform: translateY(-2px);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
@@ -319,13 +398,24 @@ body {
 
 .copyright p {
     font-size: 1rem;
-    color: rgba(74, 144, 164, 0.7);
+    color: var(--text-muted);
     font-style: normal;
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 /* 響應式設計 */
 @media (max-width: 768px) {
+    .theme-toggle {
+        top: 15px;
+        right: 15px;
+    }
+    
+    .theme-toggle-btn {
+        width: 45px;
+        height: 45px;
+        font-size: 18px;
+    }
+    
     .container {
         padding: 30px 15px;
     }
@@ -412,6 +502,17 @@ body {
 }
 
 @media (max-width: 480px) {
+    .theme-toggle {
+        top: 10px;
+        right: 10px;
+    }
+    
+    .theme-toggle-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+    }
+    
     .container {
         padding: 20px 10px;
     }

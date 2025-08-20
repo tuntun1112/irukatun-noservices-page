@@ -1,6 +1,9 @@
 // 等待 DOM 完全載入後再執行
 document.addEventListener('DOMContentLoaded', function() {
     
+    // 主題切換功能
+    initThemeToggle();
+    
     // 初始化頁面動畫
     initPageAnimations();
     
@@ -160,7 +163,13 @@ function initProgressBar() {
             progressContainer.style.transition = 'transform 0.3s ease';
             if (progressHint) {
                 progressHint.style.opacity = '1';
-                progressHint.style.color = '#FFB6C1';
+                // 使用 CSS 變數獲取當前主題的顏色
+                const currentTheme = document.documentElement.getAttribute('data-theme');
+                if (currentTheme === 'dark') {
+                    progressHint.style.color = '#B0C4DE';
+                } else {
+                    progressHint.style.color = '#FFB6C1';
+                }
             }
         }
     });
@@ -169,7 +178,8 @@ function initProgressBar() {
         progressContainer.style.transform = 'scale(1)';
         if (progressHint && !isCompleted) {
             progressHint.style.opacity = '0.7';
-            progressHint.style.color = '#87CEEB';
+            // 恢復為變數顏色
+            progressHint.style.color = '';
         }
     });
 }
@@ -250,6 +260,14 @@ function initKeyboardShortcuts() {
         // R 鍵 - 重新載入頁面
         if (e.key.toLowerCase() === 'r' && !e.ctrlKey && !e.altKey && !e.metaKey) {
             location.reload();
+        }
+        
+        // T 鍵 - 切換主題
+        if (e.key.toLowerCase() === 't' && !e.ctrlKey && !e.altKey && !e.metaKey) {
+            const themeToggleBtn = document.getElementById('theme-toggle-btn');
+            if (themeToggleBtn) {
+                themeToggleBtn.click();
+            }
         }
     });
 }
@@ -400,3 +418,51 @@ document.addEventListener('DOMContentLoaded', function() {
     };
     document.head.appendChild(fontLink);
 });
+
+// 主題切換功能
+function initThemeToggle() {
+    const themeToggleBtn = document.getElementById('theme-toggle-btn');
+    const themeIcon = document.getElementById('theme-icon');
+    
+    // 檢測系統主題偏好
+    const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
+    // 獲取保存的主題或使用系統偏好
+    let currentTheme = localStorage.getItem('theme');
+    if (!currentTheme) {
+        currentTheme = prefersDarkMode ? 'dark' : 'light';
+    }
+    
+    // 應用主題
+    setTheme(currentTheme);
+    
+    // 添加點擊事件
+    if (themeToggleBtn) {
+        themeToggleBtn.addEventListener('click', () => {
+            currentTheme = currentTheme === 'light' ? 'dark' : 'light';
+            setTheme(currentTheme);
+            localStorage.setItem('theme', currentTheme);
+        });
+    }
+    
+    // 監聽系統主題變化
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+        // 如果用戶沒有手動設置過主題，則跟隨系統
+        if (!localStorage.getItem('theme')) {
+            const newTheme = e.matches ? 'dark' : 'light';
+            setTheme(newTheme);
+        }
+    });
+    
+    function setTheme(theme) {
+        document.documentElement.setAttribute('data-theme', theme);
+        
+        if (themeIcon) {
+            if (theme === 'dark') {
+                themeIcon.className = 'fas fa-sun';
+            } else {
+                themeIcon.className = 'fas fa-moon';
+            }
+        }
+    }
+}
