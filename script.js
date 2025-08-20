@@ -1,5 +1,22 @@
+// === 版本配置 - 唯一版本來源 ===
+const APP_VERSION = '1.3.20-release';
+const BUILD_DATE = '2025-08-20 23:29:43';
+
+// 版本資訊（從上方配置讀取）
+const CURRENT_VERSION = APP_VERSION;
+const CURRENT_VERSION_DATE = BUILD_DATE;
+
 // 等待 DOM 完全載入後再執行
 document.addEventListener('DOMContentLoaded', function() {
+    // 更新頁面上的版本顯示
+    const versionDisplay = document.getElementById('version-display');
+    const versionDate = document.getElementById('version-date');
+    if (versionDisplay) {
+        versionDisplay.textContent = CURRENT_VERSION;
+    }
+    if (versionDate) {
+        versionDate.textContent = CURRENT_VERSION_DATE;
+    }
     
     // 主題切換功能
     initThemeToggle();

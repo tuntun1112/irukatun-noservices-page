@@ -403,6 +403,59 @@ body {
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
+/* 版本資訊 */
+.version-info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    padding: 8px 16px;
+    background: transparent;
+    border: 1px solid rgba(74, 144, 164, 0.4);
+    border-radius: 15px;
+    opacity: 0.8;
+    transition: all 0.3s ease;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+[data-theme="dark"] .version-info {
+    border-color: rgba(176, 196, 222, 0.3);
+}
+
+.version-text {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-weight: 400;
+    text-align: center;
+    word-spacing: 0.2em;
+    display: flex;
+    gap: 1em;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.version-item {
+    white-space: nowrap;
+}
+
+.version-text #version-display,
+.version-text #version-date {
+    font-family: monospace;
+    font-weight: 500;
+}
+
+.version-text #version-display {
+    margin-right: 0.5em;
+}
+
+.version-info:hover {
+    opacity: 1;
+    border-color: var(--text-secondary);
+}
+
 /* 響應式設計 */
 @media (max-width: 768px) {
     .theme-toggle {
@@ -499,6 +552,17 @@ body {
     .copyright p {
         font-size: 0.9rem;
     }
+    
+    .version-info {
+        padding: 6px 14px;
+        margin-bottom: 15px;
+        max-width: 350px;
+    }
+    
+    .version-text {
+        font-size: 0.75rem;
+        gap: 0.8em;
+    }
 }
 
 @media (max-width: 480px) {
@@ -578,6 +642,24 @@ body {
     
     .copyright p {
         font-size: 0.8rem;
+    }
+    
+    .version-info {
+        padding: 4px 10px;
+        margin-bottom: 10px;
+        max-width: 300px;
+    }
+    
+    .version-text {
+        font-size: 0.7rem;
+        line-height: 1.4;
+        text-align: center;
+        flex-direction: column;
+        gap: 0.2em;
+    }
+    
+    .version-item {
+        white-space: nowrap;
     }
 }
 
